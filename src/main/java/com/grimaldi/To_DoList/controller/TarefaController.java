@@ -33,4 +33,13 @@ public class TarefaController {
         return tarefaService.findAll();
     }
 
+    @GetMapping(value = "/status/{status}")
+    public List<TarefaDto> findBystatus(@PathVariable boolean status) {
+        return tarefaService.findByStatus(status);
+    }
+
+    @GetMapping(value = "/{id}")
+    public TarefaDto finById(Long id) {
+        return tarefaService.findById(id);
+    }
 }

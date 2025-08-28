@@ -17,6 +17,13 @@ public class TarefaDto {
     public TarefaDto() {
     }
 
+    public TarefaDto(Tarefa tarefa) {
+        descricao = tarefa.getDescricao();
+        id = tarefa.getId();
+        status = tarefa.getStatus();
+        titulo = tarefa.getTitulo();
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -49,10 +56,5 @@ public class TarefaDto {
         this.titulo = titulo;
     }
 
-    public TarefaDto(Tarefa tarefa) {
-        descricao = tarefa.getDescricao();
-        id = tarefa.getId();
-        status = tarefa.getStatus();
-        titulo = tarefa.getTitulo();
-    }
+
 }

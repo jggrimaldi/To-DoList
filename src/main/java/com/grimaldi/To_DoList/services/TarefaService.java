@@ -25,4 +25,13 @@ public class TarefaService {
                 .toList();
     }
 
+    public List<TarefaDto> findByStatus(boolean status) {
+        List<Tarefa> result = tarefaRepository.findByStatus(status);
+        return result.stream().map(TarefaDto::new).toList();
+    }
+
+    public TarefaDto findById(Long id) {
+        Tarefa result = tarefaRepository.findById(id).get();
+        return new TarefaDto(result);
+    }
 }
