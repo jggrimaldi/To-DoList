@@ -9,7 +9,7 @@ public class Tarefa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
     private String titulo;
     private String descricao;
     private Boolean status;
@@ -19,7 +19,7 @@ public class Tarefa {
 
     public Tarefa(String descricao, Long id, Boolean status, String titulo) {
         this.descricao = descricao;
-        Id = id;
+        this.id = id;
         this.status = status;
         this.titulo = titulo;
     }
@@ -33,11 +33,11 @@ public class Tarefa {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public Boolean getStatus() {
@@ -60,11 +60,11 @@ public class Tarefa {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Tarefa tarefa = (Tarefa) o;
-        return Objects.equals(Id, tarefa.Id);
+        return Objects.equals(id, tarefa.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(Id);
+        return Objects.hashCode(id);
     }
 }
