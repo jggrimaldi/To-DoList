@@ -42,4 +42,15 @@ public class TarefaController {
     public TarefaDto finById(Long id) {
         return tarefaService.findById(id);
     }
+
+    @PutMapping(value = "/novo/{id}")
+    public TarefaDto update(@PathVariable Long id, @RequestBody Tarefa newTarefa) {
+        return tarefaService.update(id, newTarefa);
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public void delete(@PathVariable Long id) {
+        tarefaService.delete(id);
+    }
 }
+
