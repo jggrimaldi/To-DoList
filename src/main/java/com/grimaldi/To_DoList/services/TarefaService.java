@@ -1,6 +1,9 @@
 package com.grimaldi.To_DoList.services;
 
 import com.grimaldi.To_DoList.dto.TarefaDto;
+import com.grimaldi.To_DoList.dto.TarefaRequest;
+import com.grimaldi.To_DoList.dto.TarefaResponse;
+import com.grimaldi.To_DoList.dto.TarefaUpdateRequest;
 import com.grimaldi.To_DoList.entities.Tarefa;
 import com.grimaldi.To_DoList.repositories.TarefaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,34 +27,51 @@ public class TarefaService {
     }
 
     @Transactional(readOnly = true)
-    public List<TarefaDto> findAll() {
+    public List<TarefaResponse> findAll() {
         List<Tarefa> result = tarefaRepository.findAll();
         return result.stream()
-                .map(TarefaDto::new)
+                .map(TarefaResponse::new)
                 .toList();
     }
 
     @Transactional(readOnly = true)
-    public List<TarefaDto> findByStatus(boolean status) {
+    public List<TarefaResponse> findByStatus(boolean status) {
         List<Tarefa> result = tarefaRepository.findByStatus(status);
-        return result.stream().map(TarefaDto::new).toList();
+        return result.stream().map(TarefaResponse::new).toList();
     }
 
     @Transactional(readOnly = true)
-    public TarefaDto findById(Long id) {
-        Tarefa result = tarefaRepository.findById(id).get();
-        return new TarefaDto(result);
+    public TarefaResponse findById(Long id) {
+        Tarefa result = tarefaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Tarefa não encontrada com id: " + id));;
+        return new TarefaResponse(result);
     }
 
     @Transactional
-    public TarefaDto update(Long id, Tarefa newTarefa) {
-        Tarefa oldTarefa = tarefaRepository.findById(id).get();
+    public TarefaResponse update(Long id, TarefaRequest newTarefa) {
+        Tarefa oldTarefa = tarefaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Tarefa não encontrada com id: " + id));;
         oldTarefa.setDescricao(newTarefa.getDescricao());
         oldTarefa.setStatus(newTarefa.getStatus());
         oldTarefa.setTitulo(newTarefa.getTitulo());
         tarefaRepository.save(oldTarefa);
 
-        return new TarefaDto(oldTarefa);
+        return new TarefaResponse(oldTarefa);
+    }
+
+    @Transactional
+    public TarefaResponse partialUpdate(Long id, TarefaUpdateRequest partialTarefa) {
+        Tarefa oldTarefa = tarefaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Tarefa não encontrada com id: " + id));
+        if(partialTarefa.getStatus() != null) {
+            oldTarefa.setStatus(partialTarefa.getStatus());
+        } else if (partialTarefa.getDescricao() != null) {
+            oldTarefa.setDescricao(partialTarefa.getDescricao());
+        } else if (partialTarefa.getTitulo() != null) {
+            oldTarefa.setTitulo(partialTarefa.getTitulo());
+        }
+        tarefaRepository.save(oldTarefa);
+
+        return new TarefaResponse(oldTarefa);
     }
 
     public void delete(Long id) {

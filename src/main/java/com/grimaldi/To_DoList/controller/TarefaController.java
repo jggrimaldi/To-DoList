@@ -1,6 +1,9 @@
 package com.grimaldi.To_DoList.controller;
 
 import com.grimaldi.To_DoList.dto.TarefaDto;
+import com.grimaldi.To_DoList.dto.TarefaRequest;
+import com.grimaldi.To_DoList.dto.TarefaResponse;
+import com.grimaldi.To_DoList.dto.TarefaUpdateRequest;
 import com.grimaldi.To_DoList.entities.Tarefa;
 import com.grimaldi.To_DoList.services.TarefaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +32,28 @@ public class TarefaController {
     }
 
     @GetMapping
-    public List<TarefaDto> findAll(){
+    public List<TarefaResponse> findAll(){
         return tarefaService.findAll();
     }
 
     @GetMapping(value = "/status/{status}")
-    public List<TarefaDto> findBystatus(@PathVariable boolean status) {
+    public List<TarefaResponse> findBystatus(@PathVariable boolean status) {
         return tarefaService.findByStatus(status);
     }
 
     @GetMapping(value = "/{id}")
-    public TarefaDto finById(Long id) {
+    public TarefaResponse finById(Long id) {
         return tarefaService.findById(id);
     }
 
     @PutMapping(value = "/novo/{id}")
-    public TarefaDto update(@PathVariable Long id, @RequestBody Tarefa newTarefa) {
+    public TarefaResponse update(@PathVariable Long id, @RequestBody TarefaRequest newTarefa) {
         return tarefaService.update(id, newTarefa);
+    }
+
+    @PatchMapping(value = "/{id}")
+    public TarefaResponse partialUpdate(@PathVariable Long id, @RequestBody TarefaUpdateRequest newTarefa) {
+        return tarefaService.partialUpdate(id, newTarefa);
     }
 
     @DeleteMapping(value = "/delete/{id}")
