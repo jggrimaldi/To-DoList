@@ -1,6 +1,5 @@
 package com.grimaldi.To_DoList.services;
 
-import com.grimaldi.To_DoList.dto.TarefaDto;
 import com.grimaldi.To_DoList.dto.TarefaRequest;
 import com.grimaldi.To_DoList.dto.TarefaResponse;
 import com.grimaldi.To_DoList.dto.TarefaUpdateRequest;
@@ -10,11 +9,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TarefaService {

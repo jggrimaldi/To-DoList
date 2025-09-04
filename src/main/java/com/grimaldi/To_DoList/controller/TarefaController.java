@@ -1,6 +1,5 @@
 package com.grimaldi.To_DoList.controller;
 
-import com.grimaldi.To_DoList.dto.TarefaDto;
 import com.grimaldi.To_DoList.dto.TarefaRequest;
 import com.grimaldi.To_DoList.dto.TarefaResponse;
 import com.grimaldi.To_DoList.dto.TarefaUpdateRequest;
@@ -20,9 +19,8 @@ public class TarefaController {
     private TarefaService tarefaService;
 
     @PostMapping(value = "/new")
-    public ResponseEntity<Tarefa> add(@RequestBody TarefaDto dto){
-        Tarefa tarefa = new Tarefa();
-        tarefa.setId(dto.getId());
+    public ResponseEntity<Tarefa> add(@RequestBody TarefaRequest dto){
+        Tarefa  tarefa = new Tarefa();
         tarefa.setDescricao(dto.getDescricao());
         tarefa.setStatus(dto.getStatus());
         tarefa.setTitulo(dto.getTitulo());

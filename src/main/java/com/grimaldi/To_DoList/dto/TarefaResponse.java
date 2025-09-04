@@ -9,6 +9,9 @@ public class TarefaResponse {
     private String descricao;
     private Boolean status;
 
+    public TarefaResponse() {
+    }
+
     public TarefaResponse(Tarefa tarefa) {
         id = tarefa.getId();
         titulo = tarefa.getTitulo();

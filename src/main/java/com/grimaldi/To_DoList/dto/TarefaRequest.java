@@ -8,6 +8,9 @@ public class TarefaRequest {
     private String descricao;
     private Boolean status;
 
+    public TarefaRequest() {
+    }
+
     public TarefaRequest(Tarefa tarefa) {
         titulo = tarefa.getTitulo();
         descricao = tarefa.getDescricao();
