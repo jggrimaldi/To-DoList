@@ -1,10 +1,17 @@
 package com.grimaldi.To_DoList.dto;
 
 import com.grimaldi.To_DoList.entities.Tarefa;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 //DTO que o usuario manda, n tem tudo
 public class TarefaRequest {
+
+    @NotBlank(message = "O título não pode ficar vazio")
+    @Size(max = 100, message = "O título não pode ter mais que 100 caracteres")
     private String titulo;
+
+    @Size(max = 500, message = "A descrição não pode ter mais que 500 caracteres")
     private String descricao;
     private Boolean status;
 
